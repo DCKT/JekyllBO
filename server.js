@@ -1,12 +1,21 @@
-var http = require('http'),
-express  = require('express'),
-app      = express(),
-server   = http.createServer(app);
+import http from 'http';
+import express from 'express';
+import Router from './app/Router';
+
+var app = express(),
+server  = http.createServer(app);
+
+
+var { Index } = Router;
 
 /**
 * MIDDLEWARE
 ********************* */
-require('./configs/middleware')(app, express);
+import middleware from './configs/middleware';
+middleware(app, express);
+
+
+app.use('/', Index);
 
 server.listen(8080);
-console.log("\033[33mServer started on localhost:8080\033[39m\n");
+console.log("Server started on localhost:8080\n");
